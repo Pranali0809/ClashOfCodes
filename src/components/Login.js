@@ -17,7 +17,8 @@ export const Login = (props) => {
         const json = await response.json()
         console.log(json);
         if(json.success){
-            localStorage.setItem('token', json.authToken)
+            localStorage.setItem('token', json.authToken);
+            localStorage.setItem('email',json.email);
             navigate("/");
         }else{
             alert("Invalid Credential");
