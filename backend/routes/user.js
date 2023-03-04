@@ -19,7 +19,7 @@ router.post('/profile/:email', async(req, res)=>{
 
         const exist = await User.find({ email: req.params.email });
         const newprofile = req.body;
-        newprofile.email = req.params.email, newprofile.password = exist.password;
+        newprofile.email = req.params.email, newprofile.password = exist.password, newprofile.filled_profile = exist.filled_profile;
 
         await User.findOneAndUpdate(query, newprofile);
         res.status(201).send('updated successfully');
