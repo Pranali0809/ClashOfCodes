@@ -41,7 +41,7 @@ router.post('/create',async(req, res, next)=>{
         const data = req.body;
         delete data.image;
         // console.log(req.file);
-        data.image_url = req.file.filename;
+        data.image_url = req.file.path;
         const newtrip = await Trip.create(data);
         res.status(200).send(newtrip);
 
@@ -49,6 +49,21 @@ router.post('/create',async(req, res, next)=>{
         res.status(400).send(err);
     }
 });
+
+// router.post('/create',async(req, res)=>{
+//     try{
+//         console.log(req.body)
+//         const data = req.body;
+//         delete data.image;
+//         // console.log(req.file);
+//         // data.image_url = req.file.filename;
+//         const newtrip = await Trip.create(data);
+//         res.status(200).send(newtrip);
+
+//     } catch(err){
+//         res.status(400).send(err.message);
+//     }
+// });
 
 // router.get('/upload',(req,res) => {
 //     try{
