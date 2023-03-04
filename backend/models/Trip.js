@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const TripsSchema = new Schema({
     rsvped_users:[{
-        typr: String,
+        type: String,
     }],
     host_user_id: String,
     location: String,
