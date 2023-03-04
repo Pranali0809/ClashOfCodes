@@ -16,6 +16,15 @@ router.get('/', async(req, res)=>{
     }
 });
 
+router.get('/all', async(req, res)=>{
+    try{
+        const users = await User.find({});
+        res.status(200).send(users);
+    } catch(err){
+        res.status(400).send(err);
+    }
+})
+
 // router.post('/profile/:email', async(req, res)=>{
 //     try{
 //         const query = { 'email': req.params.email };
