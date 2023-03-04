@@ -1,5 +1,4 @@
 const { Router } = require('express')
-const { uploadImage } = require('../controller/upload.controller')
 const { upload } = require('../service/upload.service')
 const { uploadToCloudinary } = require("../service/upload.service");
 const { ErrorHandler } = require('../utils/errorHandler')
