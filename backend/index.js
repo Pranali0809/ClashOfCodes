@@ -1,5 +1,6 @@
 const connectToAtlas = require("./db")
 const express = require('express')
+const path = require('path');
 const cors = require('cors')
 
 const app = express()
@@ -7,6 +8,7 @@ const port = 5000
 connectToAtlas();
 
 app.use(express.json());
+// app.use(express.urlencoded({ limit: "25mb" }));
 app.use(cors())
 
 app.use("/api/auth", require("./routes/auth"))
@@ -23,7 +25,8 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'HelloRashid';
 
 // Serve static files
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(path.join(__dirname, '/uploads')));
+app.use('/uploads', express.static('uploads'));
 console.log(__dirname);
 
 // Authenticate user using JWT

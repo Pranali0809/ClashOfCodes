@@ -45,6 +45,9 @@ const UsersSchema = new Schema({
     longitude:{
         type: Number
     },
+    aadhar_verified:{
+        type: Boolean,
+    },
     date_created : {
         type : Date,
         default : Date.now

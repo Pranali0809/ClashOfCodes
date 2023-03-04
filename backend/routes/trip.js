@@ -1,4 +1,6 @@
 const express = require("express")
+const path = require('path');
+const multer = require('multer');
 const Trip = require('../models/Trip');
 const fetchuser = require("../middlewares/fetchUser");
 const router = express.Router()
@@ -12,11 +14,45 @@ router.get('/', async(req, res)=>{
     }
 });
 
-router.post('/create', async(req, res)=>{
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now()+ path.extname(file.originalname))
+    }
+})
+ 
+const upload = multer({ 
+    storage: storage
+}).single('image');
+
+router.post('/create',async(req, res, next)=>{
+    upload(req,res,(err)=> {  
+        if(err) {
+            res.send(err)
+        }
+        else {
+            next();
+        }
+    })
+},async(req, res)=>{
     try{
         const data = req.body;
+        delete data.image;
+        // console.log(req.file);
+        data.image_url = req.file.filename;
         const newtrip = await Trip.create(data);
         res.status(200).send(newtrip);
+
+    } catch(err){
+        res.status(400).send(err);
+    }
+});
+
+router.get('/uploads/:filename',(req,res) => {
+    try{
+        res.sendFile(__dirname,"../uploads/"+req.params.filename);
     } catch(err){
         res.status(400).send(err);
     }
