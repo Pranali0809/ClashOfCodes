@@ -50,12 +50,13 @@ router.post('/create',async(req, res, next)=>{
     }
 });
 
-router.get('/uploads/:filename',(req,res) => {
-    try{
-        res.sendFile(__dirname,"../uploads/"+req.params.filename);
-    } catch(err){
-        res.status(400).send(err);
-    }
-});
+// router.get('/upload',(req,res) => {
+//     try{
+//         res.send("hello");
+//         res.sendFile(__dirname,"../uploads/"+req.query.filename);
+//     } catch(err){
+//         res.status(400).send(err);
+//     }
+// });
 
 module.exports = router;
