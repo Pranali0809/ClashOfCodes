@@ -17,12 +17,15 @@ const UsersSchema = new Schema({
     },
     phone:{
         type: String,
+        default: null,
     },
     age:{
-        type: Number
+        type: Number,
+        default: 0,
     },
     gender:{
         type: String,
+        default: null,
     },
     interests:[{
         type: String,
@@ -35,18 +38,23 @@ const UsersSchema = new Schema({
     }],
     from_date:{
         type: Date,
+        default: null,
     },
     to_date:{
         type: Date,
+        default: null,
     },
     latitude: {
         type: Number,
+        default: 0,
     },
     longitude:{
-        type: Number
+        type: Number,
+        default: 0,
     },
     aadhar_verified:{
         type: Boolean,
+        default: false,
     },
     date_created : {
         type : Date,
