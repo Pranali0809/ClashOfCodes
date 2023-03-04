@@ -15,7 +15,37 @@ const UsersSchema = new Schema({
         type : String,
         required : true
     },
-    date : {
+    phone:{
+        type: String,
+    },
+    age:{
+        type: Number
+    },
+    gender:{
+        type: String,
+    },
+    interests:[{
+        type: String,
+    }],
+    ratings:[{
+        type: Number,
+    }],
+    regions:[{
+        type: String,
+    }],
+    from_date:{
+        type: Date,
+    },
+    to_date:{
+        type: Date,
+    },
+    latitude: {
+        type: Number,
+    },
+    longitude:{
+        type: Number
+    },
+    date_created : {
         type : Date,
         default : Date.now
     }
