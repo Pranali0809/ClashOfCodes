@@ -5,6 +5,7 @@ const TripsSchema = new Schema({
     rsvped_users:[{
         typr: String,
     }],
+    host_user_id: String,
     location: String,
     region: String,
     description: String,
