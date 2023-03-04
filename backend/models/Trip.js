@@ -9,6 +9,14 @@ const TripsSchema = new Schema({
         type: String,
         default: null
     },
+    host_username:{
+        type: String,
+        default: null,
+    },
+    womens_only:{
+        type: Boolean,
+        default: false,
+    },
     location: {
         type: String,
         default: null,
@@ -20,6 +28,14 @@ const TripsSchema = new Schema({
     description: {
         type: String,
         default: null
+    },
+    estimated_budget:{
+        type: Number,
+        default: null,
+    },
+    date:{
+        type: Date,
+        default: null,
     },
     image_url:{
         type: String,
