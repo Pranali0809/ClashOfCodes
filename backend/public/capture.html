@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Webcam Capture</title>
+</head>
+
+<body>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <script>
+        // Get the video element and canvas
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+
+        // Get the capture button
+        const captureButton = document.getElementById('capture');
+
+        // Get the camera stream and set it as the source for the video element
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(error => {
+                console.error('Error accessing camera:', error);
+            });
+
+        // Add event listener to the capture button
+        captureButton.addEventListener('click', () => {
+            // Draw the current frame of the video onto the canvas
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Get the image data from the canvas as a data URL
+            const imageData = canvas.toDataURL('image/png');
+            console.log(imageData);
+            // Create a new link element and set its href attribute to the data URL
+            const link = document.createElement('a');
+            link.href = imageData;
+            link.download = 'image.png';
+
+            // Simulate a click on the link to trigger the download
+            link.click();
+        });
+
+        const axios = require("axios");
+
+        const options = {
+            method: 'POST',
+            url: 'https://age-detector.p.rapidapi.com/age-detection',
+            headers: {
+                'content-type': 'application/json',
+                'X-RapidAPI-Key': '15f58f8015mshf93d6905792c7cfp11a2b7jsn628c57a71402',
+                'X-RapidAPI-Host': 'age-detector.p.rapidapi.com'
+            },
+            data: '{"url":"image.png"}'
+        };
+
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+        }).catch(function (error) {
+            console.error(error);
+        });
+    </script>
+</body>
+
+</html>

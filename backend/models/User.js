@@ -52,7 +52,7 @@ const UsersSchema = new Schema({
         type: Number,
         default: 0,
     },
-    aadhar_verified:{
+    age_verified:{
         type: Boolean,
         default: false,
     },
