@@ -54,6 +54,7 @@ router.get('/similar/:email', async(req, res)=>{
 
         let tosend = [];
         for(let item of collect){
+            item[1].interests = item[1].interests.slice(0, 4);
             tosend.push(item[1]);
         }
         
