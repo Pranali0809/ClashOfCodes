@@ -13,6 +13,9 @@ const { bufferToDataURI } = require('../utils/file')
 router.get('/', async(req, res)=>{
     try{
         const trips = await Trip.find({});
+        for(let trip of trips){
+            trip['rsvp_count'] = trip.rsvped_users.length;
+        }
         res.status(200).send(trips);
     } catch(err){
         res.status(400).send();
