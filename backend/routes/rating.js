@@ -16,11 +16,11 @@ router.post('/', async(req, res)=>{
     }
 });
 
-router.get('/:userid', async(req, res)=>{
+router.get('/:email', async(req, res)=>{
     try{
-        const userid = req.params.userid;
+        const email = req.params.email;
 
-        const user = await User.findById(userid);
+        const user = await User.findOne({email});
         const ratings = user.ratings;
 
         let sum = 0;
