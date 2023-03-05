@@ -63,6 +63,18 @@ router.get('/similar/:email', async(req, res)=>{
     }
 })
 
+router.post('/bulk', async(req, res)=>{
+    try{
+        const users = req.body;
+        for(let user of users){
+            const newuser = await User.create(user);
+        }
+        res.status(200).send(err.message);
+    } catch(err){
+        res.status(400).send(err.message);
+    }
+});
+
 // router.post('/profile/:email', async(req, res)=>{
 //     try{
 //         const query = { 'email': req.params.email };

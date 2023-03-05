@@ -77,10 +77,10 @@ router.post('/create', upload.single('image'), async(req, res, next)=>{
 router.post('/rsvp', async(req, res)=>{
     try{
         const tripid = req.body.trip_id;
-        const userid = req.body.user_id;
+        const email = req.body.email;
 
         const trip = await Trip.findById(tripid);
-        trip.rsvped_users.push(userid);
+        trip.rsvped_users.push(email);
         await trip.save();
         res.status(200).send(trip);
     } catch(err){
