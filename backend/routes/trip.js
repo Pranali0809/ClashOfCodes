@@ -12,11 +12,13 @@ const { bufferToDataURI } = require('../utils/file')
 
 router.get('/', async(req, res)=>{
     try{
-        const trips = await Trip.find({});
+        let trips = await Trip.find({});
+        let ret = []
         for(let trip of trips){
             trip['rsvp_count'] = trip.rsvped_users.length;
+            ret.push(trip)
         }
-        res.status(200).send(trips);
+        res.status(200).send(ret);
     } catch(err){
         res.status(400).send();
     }
