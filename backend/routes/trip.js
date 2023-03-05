@@ -88,6 +88,24 @@ router.post('/rsvp', async(req, res)=>{
     }
 });
 
+router.post('/drsvp', async(req, res)=>{
+    try{
+        const tripid = req.body.trip_id;
+        const userid = req.body.user_id;
+
+        const trip = await Trip.findById(tripid);
+        const index = trip.rsvped_users.indexOf(userid);
+        if (index > -1) { 
+            trip.rsvped_users.splice(index, 1); 
+        }
+        await trip.save();
+
+        res.status(200).send();
+    } catch(err){
+        res.status(400).send(err.message);
+    }
+});
+
 router.get('/rsvpcount/:tripid', async(req, res)=>{
     try{
         const tripid = req.params.tripid;
