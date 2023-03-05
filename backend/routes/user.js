@@ -51,8 +51,13 @@ router.get('/similar/:email', async(req, res)=>{
             else return (a[0] < b[0]) ? -1:1;
         }
         collect.reverse();
+
+        let tosend = [];
+        for(let item of collect){
+            tosend.push(item[1]);
+        }
         
-        res.status(200).send(collect);
+        res.status(200).send(tosend);
     } catch(err){
         res.status(400).send(err.message);
     }
