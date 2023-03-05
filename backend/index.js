@@ -37,7 +37,7 @@ io.use(async (socket, next) => {
   try {
     const token = socket.handshake.query.token;
     const payload = await jwt.verify(token, "HelloRashid");
-    socket.userId = payload.id;
+    socket.userId = payload.user.id;
     next();
   } catch (err) {}
 });
