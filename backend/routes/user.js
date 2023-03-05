@@ -25,6 +25,39 @@ router.get('/all', async(req, res)=>{
     }
 })
 
+
+router.get('/similar/:userid', async(req, res)=>{
+    try{
+        const me = await User.findById(req.params.userid);
+        const all = await User.find();
+        let collect = [];
+        
+        let meinterests = me.interests, meregions = me.regions;
+        for(let user of all){
+            if(user.id != me.id){
+                let userinterests = user.interests;
+                const commonInterests = meinterests.filter(element => userinterests.includes(element));
+
+                let userregions = user.regions;
+                const commonRegions = meregions.filter(element=>userregions.includes(element));
+
+                collect.push([commonInterests.length+commonRegions.length, user]);
+            }
+        }
+        console.log(collect)
+        collect.sort(sortFunction);
+        function sortFunction(a, b){
+            if(a[0] == b[0]) return 0;
+            else return (a[0] < b[0]) ? -1:1;
+        }
+        collect.reverse();
+        
+        res.status(200).send(collect);
+    } catch(err){
+        res.status(400).send(err.message);
+    }
+})
+
 // router.post('/profile/:email', async(req, res)=>{
 //     try{
 //         const query = { 'email': req.params.email };
