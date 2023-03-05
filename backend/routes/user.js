@@ -26,9 +26,9 @@ router.get('/all', async(req, res)=>{
 })
 
 
-router.get('/similar/:userid', async(req, res)=>{
+router.get('/similar/:email', async(req, res)=>{
     try{
-        const me = await User.findById(req.params.userid);
+        const me = await User.findOne({ email: req.params.email });
         const all = await User.find();
         let collect = [];
         
