@@ -91,10 +91,10 @@ router.post('/rsvp', async(req, res)=>{
 router.post('/drsvp', async(req, res)=>{
     try{
         const tripid = req.body.trip_id;
-        const userid = req.body.user_id;
+        const email = req.body.email;
 
         const trip = await Trip.findById(tripid);
-        const index = trip.rsvped_users.indexOf(userid);
+        const index = trip.rsvped_users.indexOf(email);
         if (index > -1) { 
             trip.rsvped_users.splice(index, 1); 
         }

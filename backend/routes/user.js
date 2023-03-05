@@ -69,7 +69,7 @@ router.post('/bulk', async(req, res)=>{
         for(let user of users){
             const newuser = await User.create(user);
         }
-        res.status(200).send(err.message);
+        res.status(200).send('done');
     } catch(err){
         res.status(400).send(err.message);
     }
