@@ -1,18 +1,23 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-const ChatroomPage = ({ match, socket }) => {
+
+const ChatroomPage = ({match, socket }) => {
   const chatroomId = match.params.id;
   const [messages, setMessages] = React.useState([]);
   const messageRef = React.useRef();
   const [userId, setUserId] = React.useState("");
 
   const sendMessage = () => {
+    console.log("clicked");
+    console.log(socket);
     if (socket) {
       socket.emit("chatroomMessage", {
         chatroomId,
+        
         message: messageRef.current.value,
       });
+      console.log(messageRef.current.value);
 
       messageRef.current.value = "";
     }
@@ -52,12 +57,12 @@ const ChatroomPage = ({ match, socket }) => {
   }, []);
 
   return (
-    <div className="chatroomPage">
+    <div className="chatroomPage" style={{marginTop:"300px"}}>
       <div className="chatroomSection">
-        <div className="cardHeader">Chatroom Name</div>
+        <div className="cardHeader1">Chatroom Name</div>
         <div className="chatroomContent">
           {messages.map((message, i) => (
-            <div key={i} className="message">
+            <div key={i} className="message1">
               <span
                 className={
                   userId === message.userId ? "ownMessage" : "otherMessage"
@@ -89,4 +94,4 @@ const ChatroomPage = ({ match, socket }) => {
   );
 };
 
-export default ChatroomPage;
+export default withRouter(ChatroomPage);

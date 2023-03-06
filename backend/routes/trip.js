@@ -5,7 +5,6 @@ const Trip = require('../models/Trip');
 const fetchuser = require("../middlewares/fetchUser");
 const router = express.Router()
 
-const { uploadImage } = require('../controller/upload.controller')
 const { upload } = require('../service/upload.service')
 const { uploadToCloudinary } = require("../service/upload.service");
 const { ErrorHandler } = require('../utils/errorHandler')
@@ -13,8 +12,13 @@ const { bufferToDataURI } = require('../utils/file')
 
 router.get('/', async(req, res)=>{
     try{
-        const trips = await Trip.find({});
-        res.status(200).send(trips);
+        let trips = await Trip.find({});
+        let ret = []
+        for(let trip of trips){
+            trip['rsvp_count'] = trip.rsvped_users.length;
+            ret.push(trip)
+        }
+        res.status(200).send(ret);
     } catch(err){
         res.status(400).send();
     }
@@ -71,6 +75,51 @@ router.post('/create', upload.single('image'), async(req, res, next)=>{
         const newtrip = await Trip.create(data);
         res.status(200).send(newtrip);
     }catch(err){
+        res.status(400).send(err.message);
+    }
+})
+
+router.post('/rsvp', async(req, res)=>{
+    try{
+        const tripid = req.body.trip_id;
+        const email = req.body.email;
+
+        const trip = await Trip.findById(tripid);
+        trip.rsvped_users.push(email);
+        await trip.save();
+        res.status(200).send(trip);
+    } catch(err){
+        res.status(400).send(err.message);
+    }
+});
+
+router.post('/drsvp', async(req, res)=>{
+    try{
+        const tripid = req.body.trip_id;
+        const email = req.body.email;
+
+        const trip = await Trip.findById(tripid);
+        const index = trip.rsvped_users.indexOf(email);
+        if (index > -1) { 
+            trip.rsvped_users.splice(index, 1); 
+        }
+        await trip.save();
+
+        res.status(200).send();
+    } catch(err){
+        res.status(400).send(err.message);
+    }
+});
+
+router.get('/rsvpcount/:tripid', async(req, res)=>{
+    try{
+        const tripid = req.params.tripid;
+
+        const trip = await Trip.findById(tripid);
+        // console.log(trip)
+        res.status(200).send({ count: trip.rsvped_users.length });
+
+    } catch(err){
         res.status(400).send(err.message);
     }
 })

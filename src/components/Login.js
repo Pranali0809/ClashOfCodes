@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 
 export const Login = (props) => {
-    const navigate = useNavigate();
+    const history=useHistory();
     const [credentials, setCredentials] = useState({email: "", password: ""}) 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ export const Login = (props) => {
         if(json.success){
             localStorage.setItem('token', json.authToken);
             localStorage.setItem('email',json.email);
-            navigate("/");
+            history.push("/");
         }else{
             alert("Invalid Credential");
         }
@@ -30,7 +30,7 @@ export const Login = (props) => {
     }
     return (
         <div>
-            <form  onSubmit={handleSubmit}>
+            <form  onSubmit={handleSubmit} style={{marginLeft:"300px",marginRight:"300px",marginTop:"190px"}}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" value={credentials.email} onChange={onChange} id="email" name="email" aria-describedby="emailHelp" />

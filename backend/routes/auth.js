@@ -5,6 +5,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require("bcryptjs")
 var jwt = require('jsonwebtoken');
 const fetchuser = require("../middlewares/fetchUser");
+const nodemailer = require('nodemailer');
 
 const JWT_SECRET = "HelloRashid"
 
@@ -49,6 +50,58 @@ router.post("/createUser", [
     }
 })
 
+async function sendMail(user) {
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        auth: {
+            user: 'mprcashflow@gmail.com',
+            pass: 'nzuymdrknswvchmm',
+        },
+    });
+  
+  
+    const mailOptions = {
+        from: 'mprcashflow@gmail.com',
+        to: user.email,
+        subject: 'There is some activity in the chat room!',
+        text: `HI ${user.name}`,
+        attachments: [
+            {
+                content: `People are plannning to meet in the nearest chat room`,
+            },
+        ],
+    };
+  
+    await transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(`Email sent: ${info.response}`);
+        }
+    });
+  }
+  
+  function getDist(lat1, lon1, lat2, lon2) {
+    const earthRadiusKm = 6371;
+  
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+  
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+    const distance = earthRadiusKm * c;
+    return distance;
+    }
+  
+    function deg2rad(deg) {
+    return deg * (Math.PI / 180)
+    }
+
 // Authenticate a user
 router.post("/login", [
     body('email', 'Enter a valid email').isEmail(),
@@ -74,6 +127,21 @@ router.post("/login", [
         }
         const authToken = jwt.sign(data, JWT_SECRET);
         success = true;
+
+        const lat = req.body.latitude, long = req.body.longitude;
+        if(lat && long){
+            let allusers = await users.find();
+            for(let user of allusers){
+                const ulat = user.latitude, ulong = user.longitude;
+                console.log(typeof ulat)
+                const d = getDist(ulat, ulong, lat, long);
+                console.log(d);
+                if(d <= 100){
+                    sendMail(user);
+                }
+            }
+        }
+
         res.send({ success, authToken, userId: user.id, email: user.email })
     } catch (error) {
         res.status(500).send("Error has occured " + error);

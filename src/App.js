@@ -2,22 +2,23 @@ import './App.css';
 import 'react-calendar/dist/Calendar.css';
 import React from "react";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {   BrowserRouter as Router,
+  Switch,
+  Route,
+  Link } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Home } from './components/Home';
 import { About } from './components/About';
-import NoteState from './context/notes/NoteState';
-import { Alert } from './components/Alert';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import Profile from './components/Profile';
 import ChatroomPage from './components/Chating/ChatroomPage';
-import DashboardPage from './components/Chating/Dashboard';
+import Dashboard from './components/Chating/Dashboard';
 import io from "socket.io-client";
 import makeToast from "./components/Chating/Toaster";
-
-
-
+import Host from './components/Host';
+import Tour from './components/Tour'
+import Friends from './components/Friend';
 
 function App() {
   const [socket, setSocket] = React.useState(null);
@@ -25,7 +26,7 @@ function App() {
   const setupSocket = () => {
     const token = localStorage.getItem("token");
     if (token && !socket) {
-      const newSocket = io("http://localhost:8000", {
+      const newSocket = io("http://localhost:5000", {
         query: {
           token: localStorage.getItem("token"),
         },
@@ -47,38 +48,35 @@ function App() {
 
   React.useEffect(() => {
     setupSocket();
+    //eslint-disable-next-line
   }, []);
-
-
 
   return (
     <div className="App">
-    <NoteState>
+  
         <Router>
           <Navbar />
-          <Alert message="This is amazing"/>
+         
           <div className='container'>
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/about" element={<About />} />
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/signup" element={<Signup />} />
-              <Route exact path="/profile" element={<Profile />} />
+            <Switch>
+              <Route exact path="/"> <Home /></Route>
+              <Route exact path="/about"><About /></Route> 
+              <Route exact path="/login"><Login /></Route> 
+              <Route exact path="/signup"><Signup /></Route> 
+              <Route exact path="/profile"><Profile /></Route> 
+              <Route exact path="/owntrips"><Host /></Route> 
+              <Route exact path="/tours"><Tour /></Route> 
+              <Route exact path="/friends"><Friends /></Route> 
+              <Route exact path="/hangout"><Dashboard /></Route> 
               <Route
-          path="/dashboard"
-          render={() => <DashboardPage socket={socket} />}
-          exact
-        />
+          exact path="/dashboard"><Dashboard socket={socket}/></Route>
         <Route
-          path="/chatroom/:id"
-          render={() => <ChatroomPage socket={socket} />}
-          exact
-        />
-
-            </Routes>
+          exact path="/chatroom/:id"><ChatroomPage socket={socket} /></Route>
+           
+            </Switch>
           </div>
         </Router>
-      </NoteState>
+
     </div>
   );
 }

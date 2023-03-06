@@ -14,6 +14,7 @@ app.use(cors())
 app.use("/api/auth", require("./routes/auth"))
 app.use("/api/users", require("./routes/user"));
 app.use("/api/trips", require("./routes/trip"));
+app.use('/api/ratings', require('./routes/rating'));
 app.use('/upload', require('./routes/upload.routes'))
 app.use("/chatroom", require("./routes/chatroom"));
 
@@ -36,7 +37,7 @@ io.use(async (socket, next) => {
   try {
     const token = socket.handshake.query.token;
     const payload = await jwt.verify(token, "HelloRashid");
-    socket.userId = payload.id;
+    socket.userId = payload.user.id;
     next();
   } catch (err) {}
 });
@@ -66,6 +67,7 @@ io.on("connection", (socket) => {
         user: socket.userId,
         message,
       });
+      console.log(user)
       io.to(chatroomId).emit("newMessage", {
         message,
         name: user.name,

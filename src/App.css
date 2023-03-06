@@ -1,21 +1,68 @@
-
-.active{
-  color: rgb(234, 0, 0);
+.active {
+  color: white;
 }
 
+.landing{
+  background-image: url("https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=800");
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  object-fit: wrap;
 
-.interest-ul{
+  height: 100vh;
+}
+
+.highlight{
+  background-color: #858583;
+}
+
+.navbar {
+  background: #f5f8f5;
+  justify-content: space-evenly;
+}
+
+.nav-item::after {
+  content: "";
+  display: block;
+  width: 0px;
+  height: 2.5px;
+  background: #9a9721;
+  transition: 0.4s;
+}
+.nav-item.active {
+  color: #05b;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #000000;
+}
+
+.nav-link {
+  padding: 15px 5px;
+  transition: 0.2s;
+  font-size: bolder;
+  letter-spacing: 1px;
+}
+
+.interest-ul {
   list-style-type: none;
   width: 500px;
-  
+
   flex-wrap: wrap;
   padding: 20px;
-  overflow: hidden;
+
   display: flex;
-  
 }
-.interest-li{
-  
+.interest-li {
   width: 100px;
   height: 30px;
   display: flex;
@@ -26,120 +73,14 @@
   border-radius: 10px;
   border: none;
   background-color: rgb(241, 239, 215);
-  font-weight: bold;
- 
-
-
 }
 
-.interest-li button{
-border: none;
-background-color: transparent;
-}
-
-.chatroomPage {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  margin: -8px;
-}
-
-.chatroomSection {
-  width: 40vw;
-  height: 80vh;
-  margin: auto;
-  border: 1px solid #eee;
-  position: relative;
-}
-
-.chatroomContent {
-  position: absolute;
-  top: 2.5rem;
-  left: 0;
-  right: 0;
-  bottom: 3.5rem;
-  padding: 0.5rem;
-  overflow: auto;
-}
-
-.chatroomActions {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0.5rem;
-  display: grid;
-  grid-template-columns: 1fr 72px;
-  grid-gap: 1rem;
-  border-top: 1px solid #eee;
-}
-
-.chatroomActions button {
-  height: 100%;
-}
-
-.message {
-  margin-bottom: 0.25rem;
-}
-
-.otherMessage {
-  color: #0099cc;
-  font-weight: bold;
-}
-
-.ownMessage {
-  color: #00cc00;
-  font-weight: bold;
-}
-
-
-input {
+.interest-li button {
   border: none;
-  padding: 0.5rem 0.1rem;
-  width: 100%;
-  border-radius: 2px;
-  border-bottom: 1px solid #eee;
-  transition: all 0.5s;
+  background-color: transparent;
 }
 
-input:focus {
-  border-bottom: 1px solid #ccc;
-}
-
-button {
-  background: #f7c52a;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 2px;
-  width: 100%;
-  text-transform: uppercase;
-}
-
-.chatrooms {
-  margin-top: 1rem;
-}
-
-.chatroom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.join {
-  background: #f7c52a;
-  padding: 0.25rem 1rem;
-  border-radius: 2px;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-.card {
+.card1 {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
   padding: 1rem;
@@ -151,7 +92,7 @@ a {
   transform: translate(-50%, -50%);
 }
 
-.cardHeader {
+.cardHeader1 {
   background: #f7c52a;
   padding: 0.75rem 1.5rem;
   border-radius: 2px;
@@ -165,8 +106,152 @@ a {
   left: -0.75rem;
 }
 
-.cardBody {
+.cardBody1 {
   margin-top: 2rem;
 }
+.landing {
+  /* background-image: url("https://images.unsplash.com/photo-1620231150759-46b494921fd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
 
+  height: 100vh;
+}
 
+.interest-container {
+}
+.interest-ul {
+  list-style-type: none;
+  width: 500px;
+
+  flex-wrap: wrap;
+  padding: 20px;
+  overflow: hidden;
+  display: flex;
+}
+.interest-li {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(241, 239, 215);
+  font-weight: bold;
+}
+
+.interest-li button {
+  border: none;
+  background-color: transparent;
+}
+
+.single-trip {
+}
+.tour-card {
+  height: 350px;
+}
+.tours-ul {
+  list-style-type: none !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.tour-li {
+  border-radius: 5px;
+  margin: 10px;
+
+  border: none;
+
+  font-weight: bold;
+  width: 300px;
+
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #140c50;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.round-switch {
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: #ccc;
+  position: relative;
+}
+
+.round-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.round-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  width: 26px;
+  border-radius: 50%;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .round-slider {
+  -webkit-transform: translateX(30px);
+  -ms-transform: translateX(30px);
+  transform: translateX(30px);
+}

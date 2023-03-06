@@ -7,7 +7,7 @@ const DashboardPage = (props) => {
   const [chatrooms, setChatrooms] = React.useState([]);
   const getChatrooms = () => {
     axios
-      .get("http://localhost:8000/chatroom", {
+      .get("http://localhost:5000/chatroom", {
         headers: {
             'auth-token': localStorage.getItem('token')
         },
@@ -29,11 +29,11 @@ const DashboardPage = (props) => {
     const chatroomName = chatroomNameRef.current.value;
 
     axios
-      .post("http://localhost:8000/chatroom", {
+      .post("http://localhost:5000/chatroom", {
         name: chatroomName,
       }, {
         headers: {
-             'auth-token': localStorage.getItem('token')
+            'auth-token': localStorage.getItem('token'),
         },
       })
       .then((response) => {
@@ -56,22 +56,22 @@ const DashboardPage = (props) => {
   const chatroomNameRef = React.createRef();
 
   return (
-    <div className="card">
-      <div className="cardHeader">Chatrooms</div>
-      <div className="cardBody">
-        <div className="inputGroup">
+    <div className="card1" >
+      <div className="cardHeader1">Chatrooms</div>
+      <div className="cardBody1">
+        <div className="inputGroup1">
           <label htmlFor="chatroomName">Chatroom Name</label>
           <input
             type="text"
             name="chatroomName"
             id="chatroomName"
             ref={chatroomNameRef}
-            placeholder="ChatterBox Nepal"
+            placeholder="ChatterBox Bandra"
           />
         </div>
       </div>
       <button onClick={createChatroom}>Create Chatroom</button>
-      <div className="chatrooms">
+      <div className="chatrooms1">
         {chatrooms.map((chatroom) => (
           <div key={chatroom._id} className="chatroom">
             <div>{chatroom.name}</div>

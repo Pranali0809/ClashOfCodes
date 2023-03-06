@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export const Signup = () => {
-    const navigate = useNavigate();
+    const history=useHistory();
+   
     const [credentials, setCredentials] = useState({
         name : "",
         email : "",
@@ -30,14 +32,15 @@ export const Signup = () => {
         // console.log(json);
         if(json.success){
             localStorage.setItem('token', json.authToken)
-            navigate("/login");
+      history.push("/login");
+            
         }else{
             alert("Invalid Credential");
         }
     }
     return (
         <div className="signup">
-            <form  onSubmit={handleSubmit}>
+            <form  onSubmit={handleSubmit} style={{marginLeft:"300px",marginRight:"300px",marginTop:"90px"}}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Name</label>
                     <input type="text" className="form-control" value={credentials.name} onChange={onChange} id="name" name="name" aria-describedby="emailHelp" required/>
